@@ -8,7 +8,7 @@ import (
 // Structure
 //------------------------------------------------------------------------------
 
-// Client is a client for QRadar REST API.
+// Client is a client for Archer REST API.
 type Client struct {
 	httpClient *http.Client
 
@@ -26,7 +26,7 @@ type Client struct {
 // Factory
 //------------------------------------------------------------------------------
 
-// NewClient returns a new QRadar API client.
+// NewClient returns a new Archer API client.
 func NewClient(httpClient *http.Client, baseURL, instanceName, username, userDomain, password string) *Client {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
