@@ -17,5 +17,5 @@ type Endpoint struct {
 
 // Incidents endpoint.
 type Incidents interface {
-	ListIncidents(context.Context, string, string, int, int) (*IncidentsResponse, error)
+	ListIncidents(context.Context, string, string, string, int, int) (*IncidentsResponse, error)
 }

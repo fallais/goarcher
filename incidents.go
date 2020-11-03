@@ -168,7 +168,7 @@ type IncidentsResponse struct {
 //------------------------------------------------------------------------------
 
 // ListIncidents returns the incidents with given cirterias.
-func (endpoint *Endpoint) ListIncidents(ctx context.Context, since, until string, perPage, pageNumber int) (*IncidentsResponse, error) {
+func (endpoint *Endpoint) ListIncidents(ctx context.Context, endpointName, since, until string, perPage, pageNumber int) (*IncidentsResponse, error) {
 	// Authenticate and get the token
 	token, err := endpoint.client.Authenticate()
 	if err != nil {
@@ -180,14 +180,14 @@ func (endpoint *Endpoint) ListIncidents(ctx context.Context, since, until string
 	if err != nil {
 		return nil, fmt.Errorf("Error while parsing the URL : %s", err)
 	}
-	reqURL.Path += "/contentapi/Security_Incidents"
+	reqURL.Path += "/contentapi/"
+	reqURL.Path += endpointName
 
 	// Create the request
-	req, err := http.NewRequest("GET", reqURL.String(), nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", reqURL.String(), nil)
 	if err != nil {
 		return nil, fmt.Errorf("Error while creating the request : %s", err)
 	}
-	req = req.WithContext(ctx)
 
 	// Set HTTP headers
 	req.Header.Set("Authorization", fmt.Sprintf("Archer	session-id=%s", token))
