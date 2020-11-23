@@ -181,7 +181,7 @@ func (endpoint *Endpoint) ListIncidents(ctx context.Context, suffix, since, unti
 	if err != nil {
 		return nil, fmt.Errorf("Error while parsing the URL : %s", err)
 	}
-	reqURL.Path += "/contentapi/"
+	reqURL.Path += "/contentapi/Security_Incidents"
 	reqURL.Path += suffix
 	parameters := url.Values{}
 	parameters.Add("skip", strconv.Itoa(skip))
