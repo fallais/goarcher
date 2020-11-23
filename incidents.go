@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"time"
 )
 
@@ -168,7 +169,7 @@ type IncidentsResponse struct {
 //------------------------------------------------------------------------------
 
 // ListIncidents returns the incidents with given cirterias.
-func (endpoint *Endpoint) ListIncidents(ctx context.Context, endpointName, since, until string, perPage, pageNumber int) (*IncidentsResponse, error) {
+func (endpoint *Endpoint) ListIncidents(ctx context.Context, suffix, since, until string, perPage, skip int) (*IncidentsResponse, error) {
 	// Authenticate and get the token
 	token, err := endpoint.client.Authenticate()
 	if err != nil {
@@ -181,7 +182,10 @@ func (endpoint *Endpoint) ListIncidents(ctx context.Context, endpointName, since
 		return nil, fmt.Errorf("Error while parsing the URL : %s", err)
 	}
 	reqURL.Path += "/contentapi/"
-	reqURL.Path += endpointName
+	reqURL.Path += suffix
+	parameters := url.Values{}
+	parameters.Add("skip", strconv.Itoa(skip))
+	reqURL.RawQuery = parameters.Encode()
 
 	// Create the request
 	req, err := http.NewRequestWithContext(ctx, "GET", reqURL.String(), nil)
