@@ -195,6 +195,7 @@ func (endpoint *Endpoint) ListIncidents(ctx context.Context, suffix, since, unti
 
 	// Set HTTP headers
 	req.Header.Set("Authorization", fmt.Sprintf("Archer session-id=%s", token))
+	req.Header.Set("Content-Type", "application/json")
 
 	// Do the request
 	resp, err := endpoint.client.httpClient.Do(req)
