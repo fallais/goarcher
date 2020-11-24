@@ -184,7 +184,7 @@ func (endpoint *Endpoint) ListIncidents(ctx context.Context, suffix, since, unti
 	reqURL.Path += "/contentapi/Security_Incidents"
 	reqURL.Path += suffix
 	parameters := url.Values{}
-	parameters.Add("skip", strconv.Itoa(skip))
+	parameters.Add("$skip", strconv.Itoa(skip))
 	reqURL.RawQuery = parameters.Encode()
 
 	// Create the request
