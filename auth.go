@@ -9,8 +9,13 @@ import (
 	"net/url"
 )
 
-// TokenResponse is the response
+// TokenResponse is the token response.
 type TokenResponse struct {
+	RequestedObject RequestedObject `json:"RequestedObject"`
+}
+
+// RequestedObject is the request object.
+type RequestedObject struct {
 	SessionToken string `json:"SessionToken"`
 }
 
@@ -81,5 +86,5 @@ func (c *Client) Authenticate() (string, error) {
 		return "", fmt.Errorf("Error while unmarshalling the response : %s", err)
 	}
 
-	return tokenResponse.SessionToken, nil
+	return tokenResponse.RequestedObject.SessionToken, nil
 }
