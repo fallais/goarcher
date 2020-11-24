@@ -197,6 +197,8 @@ func (endpoint *Endpoint) ListIncidents(ctx context.Context, suffix, since, unti
 	req.Header.Set("Authorization", fmt.Sprintf("Archer session-id=%s", token))
 	req.Header.Set("Content-Type", "application/json")
 
+	fmt.Println(req.URL.RequestURI())
+
 	// Do the request
 	resp, err := endpoint.client.httpClient.Do(req)
 	if err != nil {
