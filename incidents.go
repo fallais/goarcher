@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
-	"net/url"
 	"time"
 )
 
@@ -177,24 +176,21 @@ func (endpoint *Endpoint) ListIncidents(ctx context.Context, suffix, since, unti
 	}
 
 	// Prepare the URL
-	reqURL, err := url.Parse(endpoint.client.BaseURL)
-	if err != nil {
-		return nil, fmt.Errorf("Error while parsing the URL : %s", err)
-	}
-	reqURL.Path += "/contentapi/Security_Incidents"
+	reqURL := endpoint.client.BaseURL
+	reqURL += "/contentapi/Security_Incidents"
 
 	// Suffix
 	if suffix != "" {
-		reqURL.Path += suffix
+		reqURL += suffix
 	}
 
 	// Skip
 	if skip != 0 {
-		reqURL.Path += fmt.Sprintf("$skip=%d", skip)
+		reqURL += fmt.Sprintf("?$skip=%d", skip)
 	}
 
 	// Create the request
-	req, err := http.NewRequestWithContext(ctx, "GET", reqURL.String(), nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", reqURL, nil)
 	if err != nil {
 		return nil, fmt.Errorf("Error while creating the request : %s", err)
 	}
