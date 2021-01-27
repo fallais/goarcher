@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/http/httputil"
 	"time"
 )
 
@@ -198,14 +197,6 @@ func (endpoint *Endpoint) ListIncidents(ctx context.Context, suffix, since, unti
 	// Set HTTP headers
 	req.Header.Set("Authorization", fmt.Sprintf("Archer session-id=%s", token))
 	req.Header.Set("Content-Type", "application/json")
-
-	// Save a copy of this request for debugging.
-	requestDump, err := httputil.DumpRequest(req, true)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(string(requestDump))
-	}
 
 	// Do the request
 	resp, err := endpoint.client.httpClient.Do(req)
