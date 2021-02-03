@@ -71,7 +71,7 @@ type Incident struct {
 	IncidentConfirmation                 []string      `json:"Incident_Confirmation"`
 	IncidentCoordinator                  []string      `json:"Incident_Coordinator"`
 	IncidentDetails                      string        `json:"Incident_Details"`
-	IncidentID                           int           `json:"Incident_ID"`
+	IncidentID                           int           `json:"Incident_ID_1"`
 	IncidentIDDFM                        int           `json:"Incident_ID_DFM"`
 	IncidentIDKPI                        string        `json:"Incident_ID_KPI"`
 	IncidentJournal                      []interface{} `json:"Incident_Journal"`
